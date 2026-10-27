@@ -1435,8 +1435,6 @@ async def test_processed_response_does_not_trigger_early_abort(
         process(stream(), case.context, submitted_request_id=rid)
     )
     assert len(responses) == 1
-    # A finished request needs no abort; an unfinished visible stream still uses
-    # the existing response-ID fallback, exactly once.
     assert case.abort_calls == ([] if terminal else [(rid, False)])
     assert not case.handler._abort_tasks
 
